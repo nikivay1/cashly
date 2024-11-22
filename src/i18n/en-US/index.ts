@@ -1,7 +1,10 @@
-// This is just an example,
-// so you can safely delete all default props below
-
 export default {
-  failed: 'Action failed',
-  success: 'Action was successful'
-};
+  transactions: 'Transactions',
+  accounts: 'Accounts',
+  limits: 'Limits',
+  analytics: 'Analytics',
+  settings: 'Settings',
+  addTransaction: 'Add Transaction',
+  balance: 'Balance',
+  description: 'Description',
+}

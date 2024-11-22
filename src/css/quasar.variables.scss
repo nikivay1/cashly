@@ -12,14 +12,19 @@
 // to match your app's branding.
 // Tip: Use the "Theme Builder" on Quasar's documentation website.
 
-$primary   : #1976D2;
-$secondary : #26A69A;
-$accent    : #9C27B0;
+// _colors.scss
 
-$dark      : #1D1D1D;
-$dark-page : #121212;
+// Основные цвета
+$primary   : #3B82F6;  // Синий
+$secondary : #4CAF50;  // Зеленый
+$accent    : #FFB74D;  // Оранжевый
 
-$positive  : #21BA45;
-$negative  : #C10015;
-$info      : #31CCEC;
-$warning   : #F2C037;
+// Темные цвета
+$dark      : #333333;  // Темно-серый текст
+$dark-page : #F3F4F6;  // Светлый серый фон
+
+// Цвета состояний
+$positive  : #66BB6A;  // Зеленый для успеха
+$negative  : #EF5350;  // Красный для ошибок
+$info      : #31CCEC;  // Голубой для информации
+$warning   : #F2C037;  // Желтый для предупреждений
