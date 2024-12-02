@@ -1,30 +1,14 @@
-// Quasar SCSS (& Sass) Variables
-// --------------------------------------------------
-// To customize the look and feel of this app, you can override
-// the Sass/SCSS variables found in Quasar's source Sass/SCSS files.
-
-// Check documentation for full list of Quasar variables
-
-// Your own variables (that are declared here) and Quasar's own
-// ones will be available out of the box in your .vue/.scss/.sass files
-
-// It's highly recommended to change the default colors
-// to match your app's branding.
-// Tip: Use the "Theme Builder" on Quasar's documentation website.
-
-// _colors.scss
-
 // Основные цвета
-$primary   : #3B82F6;  // Синий
-$secondary : #4CAF50;  // Зеленый
-$accent    : #FFB74D;  // Оранжевый
+$primary: #333333; // Грифель (основной фон или текст для темной темы)
+$secondary: #f1d3bc; // Креп (фоновые элементы или вспомогательные детали)
+$accent: #f34a4a; // Неоновый красный (акцентные элементы)
 
 // Темные цвета
-$dark      : #333333;  // Темно-серый текст
-$dark-page : #F3F4F6;  // Светлый серый фон
+$dark: #262f34; // Темно-серый текст
+$dark-page: #615049; // Коричневый серый (второстепенные элементы)
 
 // Цвета состояний
-$positive  : #66BB6A;  // Зеленый для успеха
-$negative  : #EF5350;  // Красный для ошибок
-$info      : #31CCEC;  // Голубой для информации
-$warning   : #F2C037;  // Желтый для предупреждений
+$positive: #66bb6a; // Зеленый для успеха
+$negative: #f34a4a; // Неоновый красный для ошибок
+$info: #31ccec; // Голубой для информации
+$warning: #f2c037; // Желтый для предупреждений
