@@ -8,6 +8,6 @@ services:
             - /app/node_modules
         container_name: cashly_app
         restart: always
-        stdin_open: true
-        tty: true
+        ports:
+            - '9000:9000'
         command: ['yarn', 'dev']

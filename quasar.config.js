@@ -51,7 +51,7 @@ module.exports = configure(function (/* ctx */) {
                 node: 'node20',
             },
 
-            vueRouterMode: 'hash', // available values: 'hash', 'history'
+            vueRouterMode: 'history', // available values: 'hash', 'history'
             // vueRouterBase,
             // vueDevtools,
             // vueOptionsAPI: false,
@@ -104,12 +104,16 @@ module.exports = configure(function (/* ctx */) {
                     { server: false },
                 ],
             ],
+            env: require('dotenv').config(/* ... */).parsed,
         },
 
         // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
         devServer: {
-            // https: true
-            open: true, // opens browser window automatically
+            server: {
+                type: 'http',
+            },
+            port: 9000,
+            open: false, // opens browser window automatically
         },
 
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework

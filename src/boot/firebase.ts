@@ -1,6 +1,14 @@
-import firebase, { FirebaseOptions } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { useUserStore } from '@/stores/user';
+import { FirebaseOptions, initializeApp } from 'firebase/app';
+import {
+    browserSessionPersistence,
+    getAuth,
+    onAuthStateChanged,
+    setPersistence,
+} from 'firebase/auth';
+import 'firebase/firestore'; // eslint-disable-line
+import { boot } from 'quasar/wrappers';
+import { User } from 'firebase/auth';
 
 const firebaseConfig: FirebaseOptions = {
     apiKey: process.env.apiKey,
@@ -12,7 +20,20 @@ const firebaseConfig: FirebaseOptions = {
     measurementId: process.env.measurementId,
 };
 
-const app = firebase.initializeApp(firebaseConfig);
+export default boot(() => {
+    initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
-export const firestore = getFirestore(app);
+    const auth = getAuth();
+
+    setPersistence(auth, browserSessionPersistence);
+    const { setUser, loginAnonymous, resetState } = useUserStore();
+
+    onAuthStateChanged(auth, async (user: User | null) => {
+        if (user) {
+            setUser();
+        } else {
+            resetState();
+            await loginAnonymous();
+        }
+    });
+});
