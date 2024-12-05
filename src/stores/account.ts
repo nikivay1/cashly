@@ -1,10 +1,10 @@
 import { UserAccount } from '@/shared/model';
 import {
+    addDoc,
     collection,
     doc,
     getDocs,
     getFirestore,
-    setDoc,
     updateDoc,
 } from 'firebase/firestore';
 import { defineStore } from 'pinia';
@@ -56,15 +56,12 @@ export const useAccountStore = defineStore('account', () => {
         balance: number,
         currency: string
     ) => {
-        try {
-            const accountRef = doc(db, 'users', userId, 'accounts');
-            const accountData = { name, balance, currency };
+        const accountRef = collection(db, `users/${userId}/accounts`);
 
-            await setDoc(accountRef, accountData);
-            await loadAccounts(userId);
-        } catch (error) {
-            console.error('Error adding account:', error);
-        }
+        const accountData = { name, balance, currency };
+        await addDoc(accountRef, accountData);
+
+        await loadAccounts(userId);
     };
 
     /**

@@ -14,7 +14,7 @@ export interface User {
 }
 
 export interface UserAccount {
-    uid: string;
+    uid?: string;
     name: string;
     balance: number;
     currency: string;

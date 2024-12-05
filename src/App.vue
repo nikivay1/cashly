@@ -1,9 +1,10 @@
-<template>
-  <router-view />
-</template>
-
 <script setup lang="ts">
 defineOptions({
-  name: 'App'
+    name: 'App',
 });
 </script>
+
+<template>
+    <router-view />
+    <div id="modal"></div>
+</template>

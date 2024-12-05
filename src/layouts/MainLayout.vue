@@ -4,7 +4,7 @@
             <router-view />
         </q-page-container>
 
-        <q-footer bordered class="bg-grey-8 text-white">
+        <q-footer bordered class="bg-grey-8 text-white z-10">
             <q-toolbar class="q-pa-none">
                 <div
                     v-for="(item, index) in menuItems"

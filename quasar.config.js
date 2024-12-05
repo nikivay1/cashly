@@ -22,7 +22,7 @@ module.exports = configure(function (/* ctx */) {
         boot: ['i18n', 'firebase'],
 
         // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
-        css: ['app.scss'],
+        css: ['app.scss', 'tailwind.css'],
 
         // https://github.com/quasarframework/quasar/tree/dev/extras
         extras: [
@@ -59,6 +59,7 @@ module.exports = configure(function (/* ctx */) {
             // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
             // publicPath: '/',
+            distDir: './build/',
             // analyze: true,
             // env: {},
             // rawDefine: {}
@@ -73,7 +74,7 @@ module.exports = configure(function (/* ctx */) {
             extendViteConf(viteConf) {
                 viteConf.resolve.alias = {
                     ...viteConf.resolve.alias,
-                    '@': path.resolve(__dirname, 'src'), // Убедитесь, что путь к src правильный
+                    '@': path.resolve(__dirname, 'src'),
                 };
             },
             vitePlugins: [
