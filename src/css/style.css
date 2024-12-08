@@ -1,0 +1,181 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --color-red: 200 16 46;
+        --color-white: 255 255 255;
+        --color-black: 0 0 0;
+        --color-primary: 74 144 266;
+
+        --gradient-flight: linear-gradient(
+            180deg,
+            rgba(0, 111, 182, 0.8) 0%,
+            rgba(73, 148, 200, 0.8) 100%
+        );
+        --main-banner-grad: linear-gradient(
+            270deg,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 0.66) 100%
+        );
+
+        --gradient-main-tabbar: linear-gradient(
+            180deg,
+            #02458d 0%,
+            #023c7b 100%
+        );
+        --gradient-main-header: linear-gradient(
+            180deg,
+            #022359 0%,
+            #022d64 100%
+        );
+        --gradient-main-screen: linear-gradient(
+            180deg,
+            #022d64 0%,
+            #033b76 13.23%,
+            #033879 34.79%,
+            #02357b 56%,
+            #02307e 88.05%,
+            #02458d 100%
+        );
+        --gradient-main-banner: linear-gradient(
+            270deg,
+            #000000 0%,
+            #000000 33%,
+            #000000 63%
+        );
+        --gradient-special-banner-mini: linear-gradient(
+            180deg,
+            #000000 0%,
+            #000000 60%
+        );
+        --gradient-skeleton-banner: linear-gradient(
+            180deg,
+            #000000 0%,
+            #000000 20%
+        );
+        --gradient-sber: linear-gradient(
+            241.83deg,
+            #00aded -12.32%,
+            #42e3b4 21.33%,
+            #00d900 59.13%,
+            #faed00 100.59%
+        );
+
+        font-family: 'SF PRO DISPLAY', Inter, -apple-system, BlinkMacSystemFont,
+            'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans',
+            'Droid Sans', 'Helvetica Neue', sans-serif;
+        line-height: 1.2;
+        font-weight: 400;
+
+        color-scheme: light dark;
+        box-sizing: border-box;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    html {
+        font-family: 'SF PRO DISPLAY', system-ui, sans-serif;
+    }
+
+    #q-app {
+        max-width: 1280px;
+        @apply h-screen w-full p-0 my-0 mx-auto flex place-items-center;
+    }
+}
+
+@layer components {
+    .word-break {
+        word-break: break-word;
+    }
+
+    .scrollbar-hidden {
+        scrollbar-width: none;
+    }
+
+    .card {
+        @apply flex flex-col rounded bg-white overflow-hidden;
+    }
+
+    .card-title {
+        @apply text-blue-90 text-body/15-medium bg-blue-10 p-2 flex items-center justify-between;
+    }
+
+    .field {
+        @apply flex justify-between rounded bg-white;
+    }
+
+    .row-between-center {
+        @apply flex justify-between items-center;
+    }
+
+    .field-row {
+        @apply min-h-11 flex flex-row w-full justify-between items-center;
+    }
+
+    .field-col {
+        @apply min-h-11 flex flex-col justify-center items-start gap-2;
+    }
+
+    .slider-thumb::-webkit-slider-thumb {
+        @apply w-5 h-5 appearance-none pointer-events-auto bg-primary rounded-full z-30 -translate-y-[calc(50%-4px)] border-2 border-white border-solid;
+    }
+
+    .slider-thumb::-webkit-slider-runnable-track {
+        @apply appearance-none h-2;
+    }
+
+    /* input[type='range']::-webkit-slider-thumb {
+  @apply w-9 h-9 appearance-none pointer-events-auto;
+} */
+
+    .bg-skeleton-banner {
+        background: var(--gradient-skeleton-banner);
+    }
+
+    .bg-flight {
+        background: var(--gradient-flight);
+    }
+
+    .bg-main-header {
+        background: var(--gradient-main-header);
+    }
+
+    .bg-main-screen {
+        background: var(--gradient-main-screen);
+    }
+
+    .bg-main-tabbar {
+        background: var(--gradient-main-tabbar);
+    }
+
+    .bg-special-banner-mini {
+        background: var(--gradient-special-banner-mini);
+    }
+
+    .bg-sber {
+        background: var(--gradient-sber);
+    }
+
+    .main-banner-grad {
+        background: var(--main-banner-grad);
+    }
+
+    /* custom gradients */
+}
+
+html {
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 320px;
+    /* min-height: 100vh; */
+    height: 100%;
+}

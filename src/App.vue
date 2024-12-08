@@ -6,5 +6,4 @@ defineOptions({
 
 <template>
     <router-view />
-    <div id="modal"></div>
 </template>

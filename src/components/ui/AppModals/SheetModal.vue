@@ -63,6 +63,7 @@ const computedTransitionStyles = computed(() => {
     };
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleSwipe = (tuch: any) => {
     console.log(tuch);
 
