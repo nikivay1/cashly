@@ -16,6 +16,14 @@ jobs:
             - name: Run ESLint
               run: npm run lint
             - run: npm run build:pwa
+              env:
+                  apiKey: ${{ secrets.APIKEY }}
+                  authDomain: ${{ secrets.AUTHDOMAIN }}
+                  projectId: ${{ secrets.PROJECTID }}
+                  storageBucket: ${{ secrets.STORAGEBUCKET }}
+                  messagingSenderId: ${{ secrets.MESSAGINGSENDERID }}
+                  appId: ${{ secrets.APPID }}
+                  measurementId: ${{ secrets.MEASUREMENTID }}
             - uses: FirebaseExtended/action-hosting-deploy@v0
               with:
                   repoToken: ${{ secrets.GITHUB_TOKEN }}
