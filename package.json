@@ -11,6 +11,7 @@
         "test": "echo \"No test specified\" && exit 0",
         "dev": "quasar dev",
         "build": "quasar build",
+        "build:pwa": "quasar build -m pwa",
         "build:android": "quasar dev -m cordova -T android",
         "build:ios": "quasar dev -m cordova -T ios",
         "build-prod:android": "quasar build -m cordova -T android",
