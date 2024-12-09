@@ -19,8 +19,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-
-            - name: Create .env file from secrets
             - run: |
                   echo "apiKey=${{ secrets.APIKEY }}" >> .env
                   echo "authDomain=${{ secrets.AUTHDOMAIN }}" >> .env
