@@ -21,14 +21,14 @@ jobs:
             - uses: actions/checkout@v4
 
             - name: Create .env file from secrets
-            run: |
-                echo "apiKey=${{ secrets.APIKEY }}" >> .env
-                echo "authDomain=${{ secrets.AUTHDOMAIN }}" >> .env
-                echo "projectId=${{ secrets.PROJECTID }}" >> .env
-                echo "storageBucket=${{ secrets.STORAGEBUCKET }}" >> .env
-                echo "messagingSenderId=${{ secrets.MESSAGINGSENDERID }}" >> .env
-                echo "appId=${{ secrets.APPID }}" >> .env
-                echo "measurementId=${{ secrets.MEASUREMENTID }}" >> .env
+            - run: |
+                  echo "apiKey=${{ secrets.APIKEY }}" >> .env
+                  echo "authDomain=${{ secrets.AUTHDOMAIN }}" >> .env
+                  echo "projectId=${{ secrets.PROJECTID }}" >> .env
+                  echo "storageBucket=${{ secrets.STORAGEBUCKET }}" >> .env
+                  echo "messagingSenderId=${{ secrets.MESSAGINGSENDERID }}" >> .env
+                  echo "appId=${{ secrets.APPID }}" >> .env
+                  echo "measurementId=${{ secrets.MEASUREMENTID }}" >> .env
 
             - run: npm ci
             - name: Run ESLint
