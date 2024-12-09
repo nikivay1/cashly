@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { useAccountStore } from '@/stores/account';
 import { useUserStore } from '@/stores/user';
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import accountItem from './accountItem.vue';
 import SheetModal from '@/components/ui/AppModals/SheetModal.vue';
-import { UserAccount } from '@/shared/model';
+import { currencyList, UserAccount } from '@/shared/model';
 
 defineOptions({
     name: 'AccountsPage',
@@ -14,34 +14,22 @@ const { state } = useUserStore();
 const { loadAccounts, state: accountState, addAccount } = useAccountStore();
 
 const showModal = ref(false);
-const currencyList = [
-    {
-        label: 'Лари (GEL)',
-        value: 'GEL',
-    },
-    {
-        label: 'Рубли (RUB)',
-        value: 'RUB',
-    },
-    {
-        label: 'Доллары (USD)',
-        value: 'USD',
-    },
-    {
-        label: 'Евро (EUR)',
-        value: 'EUR',
-    },
-];
 
-onMounted(() => {
-    if (state.userId) {
-        loadAccounts(state.userId);
+watch(
+    () => state.userId,
+    () => {
+        if (state.userId) {
+            loadAccounts(state.userId);
+        }
+    },
+    {
+        immediate: true,
     }
-});
+);
 
 const formData = ref<UserAccount>({
     name: '',
-    currency: '',
+    currency: 'GEL',
     balance: 0,
     active: true,
 });
@@ -66,11 +54,9 @@ const saveData = async () => {
 </script>
 <template>
     <div class="q-pa-md">
-        <h2>{{ $t('accounts') }}</h2>
-        <p>{{ $t('description') }}: {{ $t('addTransaction') }}</p>
-    </div>
-    <div v-for="account in accountState.accounts" :key="account.uid">
-        <account-item :account="account" />
+        <div v-for="account in accountState.accounts" :key="account.uid">
+            <account-item :account="account" />
+        </div>
     </div>
     <div class="q-pa-md flex flex-center add-accont-button">
         <q-btn label="Add Account" color="primary" @click="showModal = true" />
@@ -78,9 +64,9 @@ const saveData = async () => {
 
     <SheetModal v-model:show="showModal" position="bottom">
         <template #default>
-            <div class="mt-4">
-                <q-card-section>
-                    <div class="text-h6">Дбавить счет</div>
+            <div>
+                <q-card-section class="q-py-none">
+                    <div class="text-h6 text-dark">Дбавить счет</div>
                 </q-card-section>
 
                 <q-card-section>
@@ -95,9 +81,12 @@ const saveData = async () => {
                         v-model="formData.currency"
                         :options="currencyList"
                         outlined
+                        color="grey"
                         dense
+                        option-label="label"
+                        option-value="value"
                         label="Валюта"
-                        class="q-mb-md"
+                        class="q-mb-md text-dark"
                     />
                     <q-input
                         v-model="formData.balance"

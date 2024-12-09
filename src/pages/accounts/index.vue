@@ -11,7 +11,7 @@ defineOptions({
 </script>
 
 <template>
-    <AppHeader> </AppHeader>
+    <AppHeader :title="$t('accounts')" />
     <AppContent>
         <accounts-page />
     </AppContent>

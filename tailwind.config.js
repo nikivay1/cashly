@@ -32,8 +32,9 @@ module.exports = {
                     20: '#FEF2E6',
                     10: 'rgba(243, 123, 9, 0.1)',
                 },
+                white: '#edeeee',
                 gray: {
-                    DEFAULT: '#202020',
+                    DEFAULT: '#1b1c1e',
                     100: '#202020',
                     90: '#657282',
                     dark: '#657282',

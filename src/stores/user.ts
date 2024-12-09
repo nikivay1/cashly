@@ -3,19 +3,24 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     User,
-    UserCredential,
 } from 'firebase/auth';
-import { getAuth, signInAnonymously, signOut } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import { ref } from 'vue';
 import { User as Account } from '@/shared/model';
+import { v4 as uuidv4 } from 'uuid';
 import {
+    collection,
     doc,
     getDoc,
+    getDocs,
     getFirestore,
+    query,
     serverTimestamp,
     setDoc,
     Timestamp,
+    where,
 } from 'firebase/firestore';
+import { Device } from '@capacitor/device';
 
 export interface userStore {
     isAuthenticated: boolean;
@@ -37,32 +42,22 @@ export const useUserStore = defineStore('user', () => {
     });
 
     /**
-     * Sets the user state to the given user.
-     *
-     * @param user - The user to set the state to.
+     * Sets the user store state to the given user's information.
+     * @param {Account} user The user to set the state to. If not provided, the state is reset.
      */
-    const setUser = () => {
-        const user = auth.currentUser as User;
+    const setUser = (user?: Account) => {
         if (!user) {
             return;
         }
-        if (user.uid) {
-            const userRef = doc(db, 'users', user.uid);
-            getDoc(userRef).then((docSnap) => {
-                if (docSnap.exists()) {
-                    state.value.userData = docSnap.data() as Account;
-                }
-            });
-        }
-
         state.value.isAuthenticated = !user.isAnonymous;
         state.value.userId = user.uid;
-        state.value.email = state.value.userData?.email || user.email;
+        state.value.email = state.value.userData?.email || user.email || '';
         state.value.displayName =
             state.value.userData?.displayName ||
             user.displayName ||
             'Anonymous';
         state.value.isAnonymous = user.isAnonymous;
+        state.value.userData = user;
     };
 
     /**
@@ -73,7 +68,7 @@ export const useUserStore = defineStore('user', () => {
         try {
             await signOut(auth);
             resetState();
-            await signInAnonymously(auth);
+            await signInOrCreateDeviceID();
         } catch (error) {
             console.error('Error during logout:', error);
         }
@@ -122,21 +117,30 @@ export const useUserStore = defineStore('user', () => {
     };
 
     /**
-     * Logs in a user anonymously using Firebase authentication, creates a user
-     * document in Firestore with default values for an anonymous user, and updates
-     * the user state.
+     * Signs in the user by device ID or creates a new anonymous user account if no user is found.
      *
-     * If successful, sets the user state with the newly created anonymous user.
-     * In case of an error, logs the error to the console.
+     * This function retrieves the device ID and queries the Firestore database for any user associated with that device ID.
+     * If a user exists, the user data is set in the state. If no user is found, a new anonymous user account is created
+     * with a unique user ID and the current device ID, and this new account is stored in the Firestore database.
      */
-    const loginAnonymous = async () => {
-        try {
-            const result: UserCredential = await signInAnonymously(auth);
-            const userRef = doc(db, 'users', result.user.uid);
+    async function signInOrCreateDeviceID() {
+        const deviceId = await Device.getId();
+        const q = query(
+            collection(db, 'users'),
+            where('deviceId', '==', deviceId.identifier)
+        );
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.docs.length) {
+            setUser(querySnapshot.docs[0].data() as Account);
+            console.log('User found by deviceId:', state.value.userData);
+        } else {
+            const uid = uuidv4();
+            const userRef = doc(db, 'users', uid);
             const defaultUser: Account = {
-                uid: result.user.uid,
+                uid: uid,
                 deleted: false,
                 isAnonymous: true,
+                deviceId: deviceId.identifier,
                 create_at: serverTimestamp() as Timestamp,
             };
             await setDoc(
@@ -146,11 +150,53 @@ export const useUserStore = defineStore('user', () => {
                 },
                 { merge: true }
             );
-            setUser();
-        } catch (error) {
-            console.error('Error during login:', error);
+            setUser(defaultUser);
+            console.log('New user created by deviceId:', defaultUser);
         }
-    };
+    }
+
+    /**
+     * Logs in the given user or creates a new anonymous user account if the given user is null.
+     *
+     * This function first tries to log in the given user by querying the Firestore database for the user data.
+     * If the user data exists, the user data is set in the state. If no user data is found, a new anonymous user account
+     * is created with a unique user ID and the current device ID, and this new account is stored in the Firestore database.
+     *
+     * @param user - The user to log in, or null to create a new anonymous user account.
+     */
+    async function loginOrCreateUser(user: User | null) {
+        const deviceId = await Device.getId();
+        if (user) {
+            const userId = user?.uid;
+            const userRef = doc(db, 'users', userId || '');
+            const userDoc = await getDoc(userRef);
+            if (userDoc.exists()) {
+                setUser(userDoc.data() as Account);
+                console.log('User logged in:', state.value.userData);
+            } else {
+                const uid = uuidv4();
+                const userRef = doc(db, 'users', uid);
+                const defaultUser: Account = {
+                    uid: uid,
+                    deleted: false,
+                    isAnonymous: true,
+                    deviceId: deviceId.identifier,
+                    create_at: serverTimestamp() as Timestamp,
+                };
+                await setDoc(
+                    userRef,
+                    {
+                        ...defaultUser,
+                    },
+                    { merge: true }
+                );
+                setUser(defaultUser);
+                console.log('New user created by user:', defaultUser);
+            }
+            return;
+        }
+        signInOrCreateDeviceID();
+    }
 
     /**
      * Resets the state of the user store to its initial state.
@@ -167,7 +213,7 @@ export const useUserStore = defineStore('user', () => {
         state,
         resetState,
         logout,
-        loginAnonymous,
+        loginOrCreateUser,
         setUser,
         register,
         login,

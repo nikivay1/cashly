@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { UserAccount } from '@/shared/model';
-import { onMounted } from 'vue';
+import { CurrencySymbols, UserAccount } from '@/shared/model';
 
 const props = defineProps({
     account: {
@@ -8,12 +7,14 @@ const props = defineProps({
         required: true,
     },
 });
-
-onMounted(() => {
-    console.log(props);
-});
+function getCurrencySymbol(value: keyof typeof CurrencySymbols): string {
+    return CurrencySymbols[value] || '—';
+}
 </script>
 
 <template>
-    <div>{{ props.account.name }} - {{ props.account.balance }}</div>
+    <div>
+        {{ props.account.name }} - {{ props.account.balance }}
+        {{ getCurrencySymbol(props.account.currency) }}
+    </div>
 </template>

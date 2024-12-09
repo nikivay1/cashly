@@ -3,12 +3,10 @@ import { FirebaseOptions, initializeApp } from 'firebase/app';
 import {
     browserSessionPersistence,
     getAuth,
-    onAuthStateChanged,
     setPersistence,
 } from 'firebase/auth';
 import 'firebase/firestore'; // eslint-disable-line
 import { boot } from 'quasar/wrappers';
-import { User } from 'firebase/auth';
 
 const firebaseConfig: FirebaseOptions = {
     apiKey: process.env.apiKey,
@@ -22,18 +20,10 @@ const firebaseConfig: FirebaseOptions = {
 
 export default boot(() => {
     initializeApp(firebaseConfig);
-
     const auth = getAuth();
 
     setPersistence(auth, browserSessionPersistence);
-    const { setUser, loginAnonymous, resetState } = useUserStore();
+    const { loginOrCreateUser } = useUserStore();
 
-    onAuthStateChanged(auth, async (user: User | null) => {
-        if (user) {
-            setUser();
-        } else {
-            resetState();
-            await loginAnonymous();
-        }
-    });
+    loginOrCreateUser(auth.currentUser);
 });

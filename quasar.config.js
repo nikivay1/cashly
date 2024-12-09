@@ -179,6 +179,17 @@ module.exports = configure(function (/* ctx */) {
             swFilename: 'sw.js',
             manifestFilename: 'manifest.json',
             useCredentialsForManifestTag: false,
+            workboxOptions: {
+                skipWaiting: true, // Принудительное ожидание обновлений service worker
+                clientsClaim: true, // Применить новые файлы ко всем клиентам (активным вкладкам)
+            },
+            manifest: {
+                name: 'Сashly App',
+                short_name: 'PWA',
+                description: 'Description of the app',
+                background_color: '#ffffff',
+                theme_color: '#000000',
+            },
             // useFilenameHashes: true,
             // extendGenerateSWOptions (cfg) {}
             // extendInjectManifestOptions (cfg) {},

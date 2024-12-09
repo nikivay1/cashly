@@ -8,6 +8,14 @@ on:
             - master
 jobs:
     build_and_deploy:
+        env:
+            apiKey: ${{ secrets.APIKEY }}
+            authDomain: ${{ secrets.AUTHDOMAIN }}
+            projectId: ${{ secrets.PROJECTID }}
+            storageBucket: ${{ secrets.STORAGEBUCKET }}
+            messagingSenderId: ${{ secrets.MESSAGINGSENDERID }}
+            appId: ${{ secrets.APPID }}
+            measurementId: ${{ secrets.MEASUREMENTID }}
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
