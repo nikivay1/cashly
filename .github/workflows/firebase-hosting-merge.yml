@@ -19,8 +19,16 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-            - name: Print name
-              run: echo "My name is ${{github.actor}} and My API_KEY is ${{secrets.APIKEY}}"
+
+            - name: Create .env file from secrets
+            run: |
+                echo "apiKey=${{ secrets.APIKEY }}" >> .env
+                echo "authDomain=${{ secrets.AUTHDOMAIN }}" >> .env
+                echo "projectId=${{ secrets.PROJECTID }}" >> .env
+                echo "storageBucket=${{ secrets.STORAGEBUCKET }}" >> .env
+                echo "messagingSenderId=${{ secrets.MESSAGINGSENDERID }}" >> .env
+                echo "appId=${{ secrets.APPID }}" >> .env
+                echo "measurementId=${{ secrets.MEASUREMENTID }}" >> .env
 
             - run: npm ci
             - name: Run ESLint
