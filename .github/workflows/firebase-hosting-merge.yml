@@ -20,7 +20,7 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - name: Print name
-              run: echo "My name is ${{github.actor}} and My API_KEY is ${{secrets.API_KEY}}"
+              run: echo "My name is ${{github.actor}} and My API_KEY is ${{secrets.APIKEY}}"
 
             - run: npm ci
             - name: Run ESLint
