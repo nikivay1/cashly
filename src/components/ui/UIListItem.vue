@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import AppIcon from '@/components/ui/AppIcon/AppIcon.vue';
-
 defineProps<{
     icon?: string;
     title?: string;
@@ -16,7 +14,7 @@ const emit = defineEmits<{ (e: 'click-append'): void; (e: 'click'): void }>();
     >
         <div class="shrink-0">
             <slot name="prepend">
-                <AppIcon v-if="icon" :name="icon" class="text-blue" />
+                <q-icon :name="icon" v-if="!icon" class="text-blue" />
             </slot>
         </div>
         <slot name="default">
@@ -27,7 +25,7 @@ const emit = defineEmits<{ (e: 'click-append'): void; (e: 'click'): void }>();
         <div class="shrink-0">
             <slot name="append">
                 <div @click.stop="emit('click-append')">
-                    <AppIcon name="arrow-right" />
+                    <q-icon name="arrow-right" />
                 </div>
             </slot>
         </div>
