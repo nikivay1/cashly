@@ -17,7 +17,7 @@ export interface User {
 export interface UserAccount {
     uid?: string;
     name: string;
-    balance: number;
+    balance: string;
     currency: keyof typeof CurrencySymbols;
     active: boolean;
 }

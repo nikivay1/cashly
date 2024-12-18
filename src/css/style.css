@@ -7,6 +7,10 @@
         --main-bg-color: #1b1c1e;
         --main-element-color: #edeeee;
 
+        --color-red: 200 16 46;
+        --color-white: 255 255 255;
+        --color-black: 0 0 0;
+
         font-family: 'SF PRO DISPLAY', Inter, -apple-system, BlinkMacSystemFont,
             'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans',
             'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -45,7 +49,7 @@
     }
 
     .card-title {
-        @apply text-blue-90 text-body/15-medium bg-blue-10 p-2 flex items-center justify-between;
+        @apply text-gray-50 text-body/15-medium bg-gray-50/25 p-2 flex items-center justify-between;
     }
 
     .field {
@@ -62,6 +66,14 @@
 
     .field-col {
         @apply min-h-11 flex flex-col justify-center items-start gap-2;
+    }
+
+    .slider-thumb::-webkit-slider-thumb {
+        @apply w-5 h-5 appearance-none pointer-events-auto bg-primary rounded-full z-30 -translate-y-[calc(50%-4px)] border-2 border-white border-solid;
+    }
+
+    .slider-thumb::-webkit-slider-runnable-track {
+        @apply appearance-none h-2;
     }
 
     .main-bg {

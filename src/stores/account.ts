@@ -53,7 +53,7 @@ export const useAccountStore = defineStore('account', () => {
     const addAccount = async (
         userId: string,
         name: string,
-        balance: number,
+        balance: string,
         currency: string
     ) => {
         const accountRef = collection(db, `users/${userId}/accounts`);

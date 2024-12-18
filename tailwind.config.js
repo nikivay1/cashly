@@ -4,18 +4,42 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['SF PRO DISPLAY', 'sans-serif'],
+                sans: ['sans-serif'],
+            },
+            spacing: {
+                13: '3.25rem',
+                15: '3.75rem',
+                109: '109px',
+                '1/7': '14.2857143%',
+                '2/7': '28.5714286%',
+                '3/7': '42.8571429%',
+                '4/7': '57.1428571%',
+                '5/7': '71.4285714%',
+                '6/7': '85.7142857%',
+            },
+            height: {
+                13: '3.25rem',
+            },
+            width: {
+                7.5: '1.875rem',
+                8: '2rem',
+                12: '3rem',
+                13: '3.25rem',
+                22: '5.5rem',
+                23: '5.75rem',
+                24: '6rem',
+            },
+            flexBasis: {
+                '1/7': '14.2857143%',
+                '2/7': '28.5714286%',
+                '3/7': '42.8571429%',
+                '4/7': '57.1428571%',
+                '5/7': '71.4285714%',
+                '6/7': '85.7142857%',
             },
             colors: {
-                gray: {
-                    DEFAULT: '#202020',
-                    100: '#202020',
-                    90: '#657282',
-                    dark: '#657282',
-                    80: '#606060',
-                    60: '#A3A3A3',
-                    40: '#E0E0E0',
-                },
+                transparent: 'transparent',
+                current: 'currentColor',
                 blue: {
                     100: '#003F82',
                     90: '#02458D',
@@ -40,10 +64,25 @@ module.exports = {
                     dark: '#657282',
                     80: '#606060',
                     60: '#A3A3A3',
+                    50: '#333333',
                     40: '#E0E0E0',
+                    20: 'rgb(#333333 / .60)',
                 },
+                dark: '#202020',
+                red: {
+                    DEFAULT: '#C8102E',
+                    100: '#C8102E',
+                    10: 'rgb(var(--color-red) / .10)',
+                },
+                black: {
+                    DEFAULT: '#000',
+                    60: 'rgb(var(--color-black) / .60)',
+                    100: '#000',
+                },
+                green: '#25A24E',
+                success: '#25A24E',
+                primary: '#4A90E2',
             },
-
             animation: {
                 'rotate-circle': 'rotate 3s linear infinite',
             },

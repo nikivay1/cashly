@@ -11,7 +11,13 @@ defineOptions({
 </script>
 
 <template>
-    <AppHeader :title="$t('accounts')" />
+    <AppHeader>
+        <template #title>
+            <div class="flex">
+                {{ $t('accounts') }}
+            </div>
+        </template>
+    </AppHeader>
     <AppContent>
         <accounts-page />
     </AppContent>

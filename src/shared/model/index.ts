@@ -5,3 +5,4 @@ export interface selectOptions {
 }
 
 export * from './Account.model';
+export * from './Tranzaction.model';
