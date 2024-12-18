@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, useSlots, reactive, ref, type Ref, watch } from 'vue';
-import { vMaska, type MaskaDetail, type MaskInputOptions } from 'maska';
+import { computed, useSlots, ref, type Ref, watch } from 'vue';
+import { type MaskInputOptions } from 'maska';
 
 export type AppInputTextProps = {
     modelValue?: string;
@@ -45,8 +45,8 @@ const props = withDefaults(defineProps<AppInputTextProps>(), {
 });
 
 const onMaska = () => {
-    emit('update:modelValue', inputObject.unmasked);
-    emit('update:maskValue', inputObject.masked);
+    emit('update:modelValue', inputValue.value);
+    emit('update:maskValue', inputValue.value);
 };
 const emit = defineEmits(['update:modelValue', 'update:maskValue', 'blur']);
 
@@ -56,19 +56,6 @@ const showLabel = computed(() => !!slots.default);
 const input: Ref<any> = ref(null);
 
 const inputValue = ref(props.modelValue);
-
-const inputObject = reactive<MaskaDetail>({
-    masked: '',
-    unmasked: '',
-    completed: false,
-});
-
-const maskOptions = computed(() => {
-    return {
-        mask: props.mask,
-        ...props.maskExtraOptions,
-    };
-});
 
 const type = computed(() => {
     return props.hidden ? 'password' : 'text';

@@ -12,7 +12,6 @@ import AppButton from '@/components/ui/AppButton.vue';
 import AppContent from '@/components/layouts/AppContent.vue';
 import AppHeader from '@/components/layouts/AppHeader.vue';
 import AppFooter from '@/components/layouts/AppFooter.vue';
-import AppInputNum from '@/components/ui/field/AppInputNum.vue';
 
 defineOptions({
     name: 'AddNewAccount',
@@ -85,13 +84,15 @@ const saveData = async () => {
                         {{ form.currency }}
                     </template>
                 </AppSelectField>
-                <AppInputNum
-                    v-model:model-value="form.balance"
+
+                <AppInputText
+                    v-model="form.balance"
                     placeholder="Остаток"
+                    type="numeric"
                     class="q-mb-md"
                 >
                     Остаток
-                </AppInputNum>
+                </AppInputText>
             </div>
         </div>
     </AppContent>

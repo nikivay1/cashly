@@ -52,7 +52,7 @@ function onInput(event: Event) {
 
 <template>
     <div class="flex h-11 text-body/15 text-dark">
-        <div class="flex flex-1 items-center py-3 gap-7">
+        <div class="flex w-full items-center py-3 gap-2">
             <label v-if="showLabel" for="label">
                 <slot />
             </label>
